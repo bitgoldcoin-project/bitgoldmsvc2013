@@ -1,0 +1,44 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          ltc-service.sh
+# Required-Start:    $local_fs $syslog $remote_fs
+# Required-Stop:     $local_fs $syslog $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start litecoin daemon
+### END INIT INFO
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON=/home/limyg612/coin-projects/litecoin/src/
+NAME=ltc-service
+DESC=ltc-service
+
+LTCSERVER=/home/limyg612/coin-projects/litecoin/src/litecoind
+LTCCLIENT=/home/limyg612/coin-projects/litecoin/src/litecoind
+LTCSERVER_PID=$(ps auxf | grep litecoind | grep -v grep | awk '{print $2}')
+
+LTCDIR="/data/.litecoin"
+
+case "$1" in
+        start)
+                if [ -z "${LTCSERVER_PID}" ]; then
+                        echo "starting litecoin server"
+                        ${LTCSERVER} -datadir=${LTCDIR} -conf=${LTCDIR}/litecoin.conf
+                        echo "litecoin server started"
+                else
+                        echo ${LTCDIR}
+                        echo "litecoin server is running"
+                fi
+        ;;
+        stop)
+                if [ -n "${LTCSERVER_PID}" ]; then
+                        ${LTCCLIENT} -datadir=${LTCDIR} -conf=${LTCDIR}/litecoin.conf stop
+                        echo "litecoin server stopped"
+                else
+                        echo "litecoin server is not running"
+                fi
+        ;;
+esac
+
+exit 0

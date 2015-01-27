@@ -1,0 +1,9 @@
+Building Bitgoldcoin
+
+See doc/readme-qt.rst for instructions on building Bitgoldcoin-Qt,
+the intended-for-end-users, nice-graphical-interface, reference
+implementation of Bitgoldcoin.
+
+See doc/build-*.txt for instructions on building bitgoldcoind,
+the intended-for-services, no-graphical-interface, reference
+implementation of Bitgoldcoin.
